@@ -23,7 +23,7 @@ while True:
  print d['feed']['title'], "as of", now.strftime("%D"), "at", now.strftime("%H:%M:%S %p")
  print "----------------------------------------------------------------------"
 
- for i in range(0,11):
+ for i in range(0,11):  # Default length of the feed is 30, adjust it as you see fit
 
     l = d['entries'][i]['title']
     l = string.replace(l, "&#8216;", "'")
