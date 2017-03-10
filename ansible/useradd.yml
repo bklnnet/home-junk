@@ -1,0 +1,36 @@
+---
+#################################################################################
+# useradd playbook adds the user to the remote system and copy the public key
+# for passwordless authentication, no hard coding args just pass'em baby...
+#
+# usage: ansible-playbook useradd.yml --extra-vars="uname=user upass=password"
+#
+# Mark.Naumowicz@protonmail.com     (845) 832-4163      02/28/2017 
+#################################################################################
+
+- name: prep to add user to the system
+  hosts: atower
+  remote_user: mgn
+  become: yes
+  become_method: sudo
+  
+  tasks:
+  - name: create user
+    user:
+      name: "{{ uname }}"
+      password: "{{ upass | password_hash('sha512') }}"   # if you punt it to MacOS this would be plaintext
+      shell: /bin/bash
+
+  - name: fetch user public key
+    become_method: sudo
+    become_user: root
+    local_action: shell cat ~{{ uname }}/.ssh/id_rsa.pub
+    register: ssh_keys
+
+#  - name: list the key
+#    debug: msg="{{ uname }} {{ upass }}"
+#    debug: msg="{{ ssh_keys }}"
+
+  - name: install user public key on the remote server
+    authorized_key: user="{{ uname }}" key="{{ item }}"
+    with_items: "{{ ssh_keys.stdout }}"
