@@ -13,9 +13,9 @@ exit 1
 fi
 
 if [ -f $dt ]; then
-echo "exists"
+  echo "exists"
 else
-echo "does not"
+  echo "does not"
 fi
 
 #if [[ -x "$dt" ]]
@@ -25,11 +25,10 @@ fi
 #echo "cannot run it"
 #fi
 
-if [ -x $dt ]
-then
-echo "can run it"
+if [ -x $dt ] then
+  echo "can run it"
 else
-echo "cannot run it"
+  echo "cannot run it"
 fi
 
 
