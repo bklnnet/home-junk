@@ -1,0 +1,28 @@
+---
+- name: check system status
+  hosts: cnode
+  remote_user: mgn
+  become: yes
+  become_method: sudo
+  
+  tasks:
+
+
+
+  - name: Check if Service Exists
+    shell: "service {{service_name}} status"
+#    stat: path=/etc/init.d/{{service_name}}
+    register: service_status
+
+  - name: show the status
+    debug: msg="{{ service_status }}"
+
+
+#- name: ensure app/deploy public key is present on git server
+#  hosts: localhost
+#  tasks:
+#    - name: ensure app public key
+#      authorized_key: 
+#        user: mgn
+#        key: id_rsa.pub 
+#        state: present
