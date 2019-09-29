@@ -1,0 +1,26 @@
+---
+##############################################################################
+# simple re-usable package to add/remove whatever you need at the moment
+# edit one file and do the job on 20 or 200 nodes, gotta love ansible...
+#
+#
+# Mark Naumowicz mark@naumowicz.net  04/19/17
+#############################################################################
+
+- name: prep work
+  hosts: cloud-farm
+  remote_user: mgn
+  become: yes
+  become_method: sudo
+  
+  tasks:
+
+  - name: install the latest version of zsh
+    package:
+      name: zsh
+      state: latest
+
+#  - name: remove mysql
+#    package:
+#      name: mysql
+#      state: absent

@@ -1,0 +1,11 @@
+---
+- name: Ping
+  hosts: all
+
+  tasks:
+
+  - name: Ping-Pong
+#    shell: echo "Hi! Tower is working."
+#     shell: date
+    ping:
+

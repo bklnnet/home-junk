@@ -1,0 +1,36 @@
+---
+
+- name: prep to add user to the system
+  hosts: ora-bkln8.naumowicz.net
+  remote_user: mgn
+#  become: yes
+#  become_method: sudo
+  
+  tasks:
+
+   - name: collect system info
+     action: setup
+
+   - mail:
+      host: localhost
+      port: 25
+      to: mark@naumowicz.net
+      subject: Ansible-report
+      body: 'System {{ ansible_hostname }} has been successfully provisioned.'
+#\n Here is the report: \n <pre> {{ hostvars.ansible_fqdn }}</pre>'
+
+
+
+
+
+
+#   - mail:
+#       subject: 'System {{ ansible_hostname }} has been examined, here is the report.'
+#       body: '<pre> <p>  {{ hostvars }} <p> </pre>'
+#       body: '${hostvars.{$ansible_fqdn}}'
+#     delegate_to: localhost
+
+#   - osx_say:
+#       msg: '{{ inventory_hostname }} is all done'
+#       voice: Zarvox
+#     delegate_to: localhost

@@ -9,8 +9,8 @@
 #################################################################################
 
 - name: prep to add user to the system
-  hosts: atower
-  remote_user: mgn
+  hosts: do-boxes
+  remote_user: root
   become: yes
   become_method: sudo
   
@@ -27,8 +27,8 @@
     local_action: shell cat ~{{ uname }}/.ssh/id_rsa.pub
     register: ssh_keys
 
-#  - name: list the key
-#    debug: msg="{{ uname }} {{ upass }}"
+  - name: list the key
+    debug: msg="{{ uname }} {{ upass }} {{ ssh_keys }}"
 #    debug: msg="{{ ssh_keys }}"
 
   - name: install user public key on the remote server
